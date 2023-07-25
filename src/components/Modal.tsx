@@ -1,50 +1,34 @@
+import { Fragment } from "react";
+
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+
 import Button from "./Button";
 
 interface ModalProps {
-  //   isOpen: boolean;
+  isOpen: boolean;
   onClose?: () => void;
-  onSubmit?: () => void;
-  title?: string;
-  body?: React.ReactElement;
+  handleSubmit: () => void;
+  title: string;
+  body: React.ReactElement;
   footer?: React.ReactElement;
-  actionLabel?: string;
+  actionLabel: string;
+  disabled: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
-  //   isOpen,
+  isOpen,
   onClose,
-  onSubmit,
+  handleSubmit,
   title,
   body,
   footer,
   actionLabel,
+  disabled,
 }) => {
-  let [isOpen, setIsOpen] = useState(true);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-        >
-          Open dialog
-        </button>
-      </div>
-
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -76,14 +60,23 @@ const Modal: React.FC<ModalProps> = ({
                     Payment successful
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                    {/* <p className="text-sm text-gray-500">
                       Your payment has been successfully submitted. We’ve sent
                       you an email with all of the details of your order.
-                    </p>
+                    </p> */}
+
+                    {body}
                   </div>
 
                   <div className="mt-4">
-                    <Button label="Submit" fullWidth large secondary />
+                    <Button
+                      label={actionLabel}
+                      onClick={handleSubmit}
+                      disabled={disabled}
+                      fullWidth
+                      large
+                      secondary
+                    />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

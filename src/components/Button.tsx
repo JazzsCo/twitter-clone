@@ -3,8 +3,8 @@ interface ButtonProps {
   secondary?: boolean;
   fullWidth?: boolean;
   large?: boolean;
-  onClick?: () => void;
-  disabled?: boolean;
+  onClick: () => void;
+  disabled: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
