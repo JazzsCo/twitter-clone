@@ -17,9 +17,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="w-full">
-      {label && (
-        <p className="text-xl text-white font-semibold mb-2">{label}</p>
-      )}
+      <p className="text-lg text-white mb-2">{label}</p>
       <input
         disabled={disabled}
         onChange={onChange}
@@ -28,8 +26,8 @@ const Input: React.FC<InputProps> = ({
         type={type}
         className="
           w-full
-          p-4 
-          text-lg 
+          p-2
+          text-base
           bg-black 
           border-2
           border-neutral-800 
