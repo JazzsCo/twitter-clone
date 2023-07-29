@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import Input from "../Input";
 
 import useLoginModal from "@/Hooks/useLoginModal";
+import useRegisterModal from "@/Hooks/useRegisterModal";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,14 @@ const LoginModal = () => {
   const [loading, setLoading] = useState(false);
 
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+
+  const onToggle = () => {
+    if (loading) return;
+
+    loginModal.onClose();
+    registerModal.onOpen();
+  };
 
   const handleSubmit = async () => {
     try {
@@ -45,13 +54,25 @@ const LoginModal = () => {
     </div>
   );
 
+  const footerContent = (
+    <div className="mt-4 text-white text-center text-sm">
+      <p>
+        First time using Twitter? {""}
+        <span className="underline cursor-pointer" onClick={onToggle}>
+          Sign Up
+        </span>
+      </p>
+    </div>
+  );
+
   return (
     <Modal
-      title="Log In"
-      actionLabel="Sign In"
+      title="Welcome back!"
+      actionLabel="Login In"
       isOpen={loginModal.isOpen}
       onClose={loginModal.onClose}
       body={bodyContent}
+      footer={footerContent}
       disabled={loading}
       handleSubmit={() => handleSubmit()}
     />

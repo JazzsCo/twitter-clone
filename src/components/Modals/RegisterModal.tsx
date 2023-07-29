@@ -13,7 +13,15 @@ const RegisterModal = () => {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
+  const onToggle = () => {
+    if (loading) return;
+
+    registerModal.onClose();
+    loginModal.onOpen();
+  };
 
   const handleSubmit = async () => {
     try {
@@ -64,13 +72,25 @@ const RegisterModal = () => {
     </div>
   );
 
+  const footerContent = (
+    <div className="mt-4 text-white text-center text-sm">
+      <p>
+        Already have an account! {""}
+        <span className="underline cursor-pointer" onClick={onToggle}>
+          Login In
+        </span>
+      </p>
+    </div>
+  );
+
   return (
     <Modal
-      title="Register"
+      title="Hello my first boi!"
       actionLabel="Sign Up"
       isOpen={registerModal.isOpen}
       onClose={registerModal.onClose}
       body={bodyContent}
+      footer={footerContent}
       disabled={loading}
       handleSubmit={() => handleSubmit()}
     />
