@@ -11,24 +11,24 @@ datasource db {
 }
 
 model User {
-  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
   name            String?
-  username        String?        @unique
+  username        String?   @unique
   bio             String?
-  email           String?        @unique
+  email           String?   @unique
   emailVerified   DateTime?
   image           String?
   coverImage      String?
   profileImage    String?
   hashedPassword  String?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  followingIds    String[]       @db.ObjectId
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  followingIds    String[]  @db.ObjectId
   hasNotification Boolean?
 
-  Post            Post[]
-  Comment         Comment[]
-  Notification    Notification[]
+  Post         Post[]
+  Notification Notification[]
+  Comments     Comments[]
 }
 
 model Post {
@@ -40,12 +40,12 @@ model Post {
   likedIds  String[] @db.ObjectId
   image     String?
 
-  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  Comment Comment[]
+  Comments Comments[]
 }
 
-model Comment {
+model Comments {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   body      String
   createdAt DateTime @default(now())

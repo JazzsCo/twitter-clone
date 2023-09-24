@@ -37,9 +37,9 @@ const RegisterModal = () => {
         name,
       });
 
-      signIn("credentials", { email, password });
-
       toast.success("Create account.");
+
+      signIn("credentials", { email, password });
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong.");
